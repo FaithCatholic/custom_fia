@@ -1,0 +1,14 @@
+{
+  "name": "drupal/custom_fia",
+  "type": "drupal-module",
+  "description": "Provies a Facebook instant articles RSS feed for content.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/custom_fia",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/custom_fia",
+    "source": "http://cgit.drupalcode.org/custom_fia"
+  },
+  "require": { }
+}

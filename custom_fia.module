@@ -1,0 +1,11 @@
+<?php
+
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Prepares variables for views FIA item templates.
+ */
+function custom_fia_views_preprocess_views_view_row_fia(&$variables) {
+  $item = $variables['row'];
+  $variables['attributes'] = new Attribute($item);
+}

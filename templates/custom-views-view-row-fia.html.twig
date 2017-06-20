@@ -1,0 +1,57 @@
+<item>
+  <title>{{ options.title }}</title>
+  <link>{{  options.link.url }}</link>
+  <guid>{{ options.guid }}</guid>
+  <pubDate>{{ options.created|date("Y-d-m") }}</pubDate>
+  <author>{{  options.author }}</author>
+  <description>{{ options.deck }}</description>
+  <content:encoded>
+    <![CDATA[
+    <!doctype html>
+    <html lang="{{ options.langcode }}" prefix="op: http://media.facebook.com/op#">
+    <head>
+      <meta charset="utf-8">
+      <link rel="canonical" href="{{ options.link.url }}">
+      <meta property="op:markup_version" content="v1.0">
+    </head>
+    <body>
+    <article>
+      <header>
+        <h1>{{ options.title }}</h1>
+
+        {% if options.subtitle -%}
+          <h2>{{ options.subtitle }}</h2>
+        {% endif %}
+
+        {% if options.kicker -%}
+          <h3 class="op-kicker">{{ options.kicker }}</h3>
+        {% endif %}
+
+        <time class="op-published" datetime="{{ options.created|date("Y-d-m") }}">{{ options.created|date("F jS") }}</time>
+
+        <time class="op-modified" datetime="{{ options.modified|date("Y-d-m") }}">{{ options.modified|date("F jS") }}</time>
+
+        {% if options.author -%}
+          <address>{{ options.author }}</address>
+        {% endif %}
+
+        {% if options.figure -%}
+          <figure>{{ options.figure|raw }}</figure>
+        {% endif %}
+
+      </header>
+
+      {{ row }}
+
+      {% if footer -%}
+        <footer>
+          {{ footer }}
+        </footer>
+      {% endif %}
+
+    </article>
+    </body>
+    </html>
+    ]]>
+  </content:encoded>
+</item>
