@@ -79,7 +79,7 @@ class Settings extends ConfigFormBase {
     );
 
     // Get defined text fields from node entities.
-    $field_ids = [];
+    $node_fields = [];
     $fields = $this->entityTypeManager
       ->getStorage('field_storage_config')
       ->loadByProperties(array(
@@ -87,14 +87,25 @@ class Settings extends ConfigFormBase {
         'deleted' => FALSE,
         'status' => 1,
       ));
-
     foreach($fields as $field) {
       if ($field_id = $field->get('field_name')) {
-        $field_ids[$field_id] = $field_id;
+        $node_fields[$field_id] = $field_id;
       }
     }
 
-    // array_unshift = ($field_ids, ''
+    $media_fields = [];
+    $fields = $this->entityTypeManager
+      ->getStorage('field_storage_config')
+      ->loadByProperties(array(
+        'entity_type' => 'media',
+        'deleted' => FALSE,
+        'status' => 1,
+      ));
+    foreach($fields as $field) {
+      if ($field_id = $field->get('field_name')) {
+        $media_fields[$field_id] = $field_id;
+      }
+    }
 
     $form['fields'] = array(
       '#title' => t('Field mappings'),
@@ -104,7 +115,7 @@ class Settings extends ConfigFormBase {
     $form['fields']['field_author'] = array(
       '#default_value' => $config->get('field_author') ? $config->get('field_author') : '',
       '#empty_option' => 'Default',
-      '#options' => $field_ids,
+      '#options' => $node_fields,
       '#required' => FALSE,
       '#title' => 'Author field',
       '#type' => 'select',
@@ -113,25 +124,16 @@ class Settings extends ConfigFormBase {
     $form['fields']['field_deck'] = array(
       '#default_value' => $config->get('field_deck') ? $config->get('field_deck') : '',
       '#empty_option' => 'Default',
-      '#options' => $field_ids,
+      '#options' => $node_fields,
       '#required' => FALSE,
       '#title' => 'Deck field',
-      '#type' => 'select',
-    );
-
-    $form['fields']['field_figure'] = array(
-      '#default_value' => $config->get('field_figure') ? $config->get('field_figure') : '',
-      '#empty_option' => 'Default',
-      '#options' => $field_ids,
-      '#required' => FALSE,
-      '#title' => 'Figure field',
       '#type' => 'select',
     );
 
     $form['fields']['field_kicker'] = array(
       '#default_value' => $config->get('field_kicker') ? $config->get('field_kicker') : '',
       '#empty_option' => 'Default',
-      '#options' => $field_ids,
+      '#options' => $node_fields,
       '#required' => FALSE,
       '#title' => 'Kicker field',
       '#type' => 'select',
@@ -140,7 +142,7 @@ class Settings extends ConfigFormBase {
     $form['fields']['field_created'] = array(
       '#default_value' => $config->get('field_created') ? $config->get('field_created') : '',
       '#empty_option' => 'Default',
-      '#options' => $field_ids,
+      '#options' => $node_fields,
       '#required' => FALSE,
       '#title' => 'Created field',
       '#type' => 'select',
@@ -149,9 +151,27 @@ class Settings extends ConfigFormBase {
     $form['fields']['field_subtitle'] = array(
       '#default_value' => $config->get('field_subtitle') ? $config->get('field_subtitle') : '',
       '#empty_option' => 'Default',
-      '#options' => $field_ids,
+      '#options' => $node_fields,
       '#required' => FALSE,
       '#title' => 'Subtitle field',
+      '#type' => 'select',
+    );
+
+    $form['fields']['field_figure'] = array(
+      '#default_value' => $config->get('field_figure') ? $config->get('field_figure') : '',
+      '#empty_option' => 'Default',
+      '#options' => $node_fields,
+      '#required' => FALSE,
+      '#title' => 'Figure reference field',
+      '#type' => 'select',
+    );
+
+    $form['fields']['field_figure_image'] = array(
+      '#default_value' => $config->get('field_figure_image') ? $config->get('field_figure_image') : '',
+      '#empty_option' => 'Default',
+      '#options' => $media_fields,
+      '#required' => FALSE,
+      '#title' => 'Figure referenced entity image field',
       '#type' => 'select',
     );
 

@@ -5,6 +5,7 @@ namespace Drupal\custom_fia\Plugin\views\row;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\file\Entity\File;
 use Drupal\views\Plugin\views\row\EntityRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -75,8 +76,8 @@ class FiaFields extends EntityRow {
       $options['deck'] = $field;
     }
     if ($config->get('field_figure') && $entity->hasField($config->get('field_figure')) && $entity->get($config->get('field_figure'))->entity) {
-      $media = $entity->get('field_featured_image')->first()->get('entity')->getTarget()->getValue();
-      $image = $media->get('field_image')->first()->get('entity')->getTarget()->getValue();
+      $media = $entity->get($config->get('field_figure'))->first()->get('entity')->getTarget()->getValue();
+      $image = $media->get($config->get('field_figure_image'))->first()->get('entity')->getTarget()->getValue();
       $file = File::load($image->get('fid')->value);
       $options['figure'] = $file->url();
     }

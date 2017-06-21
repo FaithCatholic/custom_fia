@@ -15,7 +15,10 @@ custom_fia.settings:
       label: 'Deck field'
     field_figure:
       type: string
-      label: 'Figure field'
+      label: 'Figure reference field'
+    field_figure_image:
+      type: string
+      label: 'Figure referenced entity image field'
     field_kicker:
       type: string
       label: 'Kicker field'
