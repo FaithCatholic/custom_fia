@@ -4,7 +4,9 @@
   <guid>{{ options.guid }}</guid>
   <pubDate>{{ options.created|date("Y-d-m") }}</pubDate>
   <author>{{  options.author }}</author>
-  <description>{{ options.deck }}</description>
+  {% if options.deck -%}
+    <description>{{ options.deck }}</description>
+  {% endif %}
   <content:encoded>
     <![CDATA[
     <!doctype html>
@@ -13,6 +15,13 @@
       <meta charset="utf-8">
       <link rel="canonical" href="{{ options.link.url }}">
       <meta property="op:markup_version" content="v1.0">
+      <meta property="og:title" content="{{ options.title }}">
+      {% if options.deck -%}
+        <meta property="og:description" content="{{ options.deck }}">
+      {% endif %}
+      {% if options.figure -%}
+        <meta property="og:image" content="{{ options.figure }}">
+      {% endif %}
     </head>
     <body>
     <article>
@@ -23,20 +32,20 @@
           <h2>{{ options.subtitle }}</h2>
         {% endif %}
 
-        {% if options.kicker -%}
-          <h3 class="op-kicker">{{ options.kicker }}</h3>
-        {% endif %}
-
         <time class="op-published" datetime="{{ options.created|date("Y-d-m") }}">{{ options.created|date("F jS") }}</time>
 
         <time class="op-modified" datetime="{{ options.modified|date("Y-d-m") }}">{{ options.modified|date("F jS") }}</time>
 
         {% if options.author -%}
-          <address>By {{ options.author }}</address>
+          <address>{{ options.author }}</address>
         {% endif %}
 
         {% if options.figure -%}
           <figure><img src="{{ options.figure }}"></figure>
+        {% endif %}
+
+        {% if options.kicker -%}
+          <h3 class="op-kicker">{{ options.kicker }}</h3>
         {% endif %}
 
       </header>

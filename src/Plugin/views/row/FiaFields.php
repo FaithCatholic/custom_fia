@@ -60,38 +60,32 @@ class FiaFields extends EntityRow {
     $options['langcode'] = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     // Default fields
-    $options['title']     = $entity->getTitle();
-    $options['author']    = $entity->getOwner()->getAccountName();
-    $options['created']   = '@'.$entity->getCreatedTime();
-    $options['modified']  = '@'.$entity->getChangedTime();
-    $options['link']      = $entity->toLink(NULL, 'canonical', ['absolute' => true]);
-    $options['guid']      = $entity->uuid();
+    $options['title'] = $entity->getTitle();
+    $options['author'] = $entity->getOwner()->getAccountName();
+    $options['created'] = '@'.$entity->getCreatedTime();
+    $options['modified'] = '@'.$entity->getChangedTime();
+    $options['link'] = $entity->toLink(NULL, 'canonical', ['absolute' => true]);
+    $options['guid'] = $entity->uuid();
 
     // Field_ui fields
-    if ($config->get('field_author') && $entity->hasField($config->get('field_author')) && $value = $entity->get($config->get('field_author'))->value) {
-      $options['author'] = $value;
+    if ($config->get('field_author') && $entity->hasField($config->get('field_author')) && $field = $entity->get($config->get('field_author'))->value) {
+      $options['author'] = $field;
     }
-    if ($config->get('field_deck') && $entity->hasField($config->get('field_deck')) && $value = $entity->get($config->get('field_deck'))->value) {
-      $options['deck'] = $value;
+    if ($config->get('field_deck') && $entity->hasField($config->get('field_deck')) && $field = $entity->get($config->get('field_deck'))->value) {
+      $options['deck'] = $field;
     }
-    if ($config->get('field_figure') && $entity->hasField($config->get('field_figure')) && $image = $entity->get($config->get('field_figure'))->entity) {
-      $options['figure'] = file_create_url($image->getFileUri());
+    if ($config->get('field_figure') && $entity->hasField($config->get('field_figure')) && $field = $entity->get($config->get('field_figure'))->entity) {
+      $options['figure'] = file_create_url($field->getFileUri());
     }
-    if ($config->get('field_kicker') && $entity->hasField($config->get('field_kicker')) && $value = $entity->get($config->get('field_kicker'))->value) {
-      $options['kicker'] = $value;
+    if ($config->get('field_kicker') && $entity->hasField($config->get('field_kicker')) && $field = $entity->get($config->get('field_kicker'))->value) {
+      $options['kicker'] = $field;
     }
-    if ($config->get('field_created') && $entity->hasField($config->get('field_created')) && $value = $entity->get($config->get('field_created'))->value) {
-      $options['created'] = $value;
+    if ($config->get('field_created') && $entity->hasField($config->get('field_created')) && $field = $entity->get($config->get('field_created'))->value) {
+      $options['created'] = $field;
     }
-    if ($config->get('field_subtitle') && $entity->hasField($config->get('field_subtitle')) && $value = $entity->get($config->get('field_subtitle'))->value) {
-      $options['subtitle'] = $value;
+    if ($config->get('field_subtitle') && $entity->hasField($config->get('field_subtitle')) && $field = $entity->get($config->get('field_subtitle'))->value) {
+      $options['subtitle'] = $field;
     }
-
-
-    // if ($entity->hasField('field_featured_image'))  $options['figure']    = $entity->get('field_featured_image')->entity ? file_create_url($entity->get('field_featured_image')->entity->getFileUri()) : NULL;
-    // if ($entity->hasField('field_kicker'))          $options['kicker']    = $entity->get('field_kicker')->value          ? $entity->get('field_kicker')->value : NULL;
-    // if ($entity->hasField('field_published_date'))  $options['created']   = $entity->get('field_published_date')->value  ? $entity->get('field_published_date')->value : NULL;
-    // if ($entity->hasField('field_subhead'))         $options['subtitle']  = $entity->get('field_subhead')->value         ? $entity->get('field_subhead')->value : NULL;
 
     $build = [
       '#theme' => $this->themeFunctions(),
