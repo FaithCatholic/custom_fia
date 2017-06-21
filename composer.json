@@ -1,5 +1,5 @@
 {
-  "name": "drupal/custom_fia",
+  "name": "faithcatholic/custom_fia",
   "type": "drupal-module",
   "description": "Provies a Facebook instant articles RSS feed for content.",
   "keywords": ["Drupal"],
