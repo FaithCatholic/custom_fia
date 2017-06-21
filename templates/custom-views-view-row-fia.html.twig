@@ -32,11 +32,11 @@
         <time class="op-modified" datetime="{{ options.modified|date("Y-d-m") }}">{{ options.modified|date("F jS") }}</time>
 
         {% if options.author -%}
-          <address>{{ options.author }}</address>
+          <address>By {{ options.author }}</address>
         {% endif %}
 
         {% if options.figure -%}
-          <figure>{{ options.figure|raw }}</figure>
+          <figure><img src="{{ options.figure }}"></figure>
         {% endif %}
 
       </header>

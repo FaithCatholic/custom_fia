@@ -1,0 +1,5 @@
+custom_fia.settings:
+  title: 'Custom FIA'
+  description: 'Configure custom FIA settings.'
+  route_name: custom_fia.settings
+  parent: system.admin_config_services

@@ -1,0 +1,8 @@
+
+custom_fia.settings:
+  path: '/admin/config/services/custom-fia'
+  defaults:
+    _form: '\Drupal\custom_fia\Form\Settings'
+    _title: 'Custom FIA Settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,11 +1,44 @@
 <?php
 
-use Drupal\Core\Template\Attribute;
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function custom_fia_page_attachments_alter(array &$page) {
+  $config = \Drupal::config('custom_fia.settings');
+  $path_matcher = \Drupal::service('path.matcher');
+
+  if ($path_matcher->isFrontPage() && $page_id = $config->get('page_id')) {
+    $meta_page_id = [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'property' => 'fb:pages',
+        'content' => $page_id,
+      ],
+    ];
+    $page['#attached']['html_head'][] = [$meta_page_id, 'fia_pagesid'];
+  }
+}
 
 /**
- * Prepares variables for views FIA item templates.
+ * Implements hook_theme().
  */
-function custom_fia_views_preprocess_views_view_row_fia(&$variables) {
-  $item = $variables['row'];
-  $variables['attributes'] = new Attribute($item);
+function custom_fia_theme() {
+  return [
+    'node_custom_fia' => [
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ */
+function custom_fia_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  $config = \Drupal::config('custom_fia.settings');
+  if ($view_mode = $config->get('view_mode')) {
+    // Load custom template on enabled view mode.
+    if ($variables['elements']['#view_mode'] === $view_mode) {
+      $suggestions[] = 'node_custom_fia';
+    }
+  }
 }

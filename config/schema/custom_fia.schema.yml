@@ -1,0 +1,27 @@
+custom_fia.settings:
+  type: config_object
+  mapping:
+    page_id:
+      type: string
+      label: 'Page ID'
+    view_mode:
+      type: string
+      label: 'View Mode'
+    field_author:
+      type: string
+      label: 'Author field'
+    field_deck:
+      type: string
+      label: 'Deck field'
+    field_figure:
+      type: string
+      label: 'Figure field'
+    field_kicker:
+      type: string
+      label: 'Kicker field'
+    field_created:
+      type: string
+      label: 'Created field'
+    field_subtitle:
+      type: string
+      label: 'Subtitle field'
