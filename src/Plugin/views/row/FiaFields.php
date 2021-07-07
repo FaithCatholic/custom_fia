@@ -3,7 +3,7 @@
 namespace Drupal\custom_fia\Plugin\views\row;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\file\Entity\File;
 use Drupal\views\Plugin\views\row\EntityRow;
@@ -26,7 +26,7 @@ class FiaFields extends EntityRow {
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_manager, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory) {
     $configuration['entity_type'] = 'node';
     $this->config = $config_factory;
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $language_manager);
