@@ -1,6 +1,5 @@
 name: Custom facebook instant articles
 type: module
 description: Provides a facebook instant articles RSS views feed.
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: Custom
