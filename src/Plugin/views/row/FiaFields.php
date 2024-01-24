@@ -79,7 +79,7 @@ class FiaFields extends EntityRow {
       $media = $entity->get($config->get('field_figure'))->first()->get('entity')->getTarget()->getValue();
       $image = $media->get($config->get('field_figure_image'))->first()->get('entity')->getTarget()->getValue();
       $file = File::load($image->get('fid')->value);
-      $options['figure'] = $file->url();
+      $options['figure'] = $file->createFileUrl(FALSE);
     }
     if ($config->get('field_kicker') && $entity->hasField($config->get('field_kicker')) && $field = $entity->get($config->get('field_kicker'))->value) {
       $options['kicker'] = $field;
