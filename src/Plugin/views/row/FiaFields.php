@@ -2,9 +2,6 @@
 
 namespace Drupal\custom_fia\Plugin\views\row;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\file\Entity\File;
 use Drupal\views\Plugin\views\row\EntityRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,35 +12,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   title = @Translation("Custom FIA fields"),
  *   help = @Translation("Render content as Facebook instant articles."),
  *   theme = "custom_views_view_row_fia",
+ *   entity_type = "node",
  *   display_types = {"feed"}
  * )
  */
 
 class FiaFields extends EntityRow {
 
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
   public $config;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_manager, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory) {
-    $configuration['entity_type'] = 'node';
-    $this->config = $config_factory;
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $language_manager);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity.manager'),
-      $container->get('language_manager'),
-      $container->get('config.factory')
-    );
+    $fields = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $fields->config = $container->get('config.factory');
+    return $fields;
   }
 
   /**
